@@ -72,3 +72,5 @@ crashlytics-build.properties
 
 #Assets too large for the repo
 /[Aa]ssets/[Mm]odules/TerrainTexturesPackFree
+/[Aa]ssets/[Mm]odules/SkySeries_Freebie
+/[Aa]ssets/SkySeries_Freebie
