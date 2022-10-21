@@ -261,7 +261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7258583715905093709
 Transform:
   m_ObjectHideFlags: 0
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_FieldBuilder: {fileID: 7258583716534376804}
   _builderCompute: {fileID: 7200000, guid: f90c15ec5cb56ef4cb6a1a576e70fc07, type: 3}
-  m_TriangleBudget: 10000
+  m_TriangleBudget: 21778
   m_isoValue: 0
 --- !u!1 &7258583716021015120
 GameObject:

@@ -7,6 +7,8 @@ public class AircraftPhysics : MonoBehaviour
 {
     const float PREDICTION_TIMESTEP_FRACTION = 0.5f;
 
+    [SerializeField]
+    private float m_StartingSpeed;
     [SerializeField] 
     float thrust = 0;
     [SerializeField] 
@@ -20,6 +22,8 @@ public class AircraftPhysics : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
+        rb.velocity = transform.forward * m_StartingSpeed;
     }
 
     private void FixedUpdate()

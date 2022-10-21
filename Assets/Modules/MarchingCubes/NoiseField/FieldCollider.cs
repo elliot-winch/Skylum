@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace MarchingCubes
@@ -38,7 +39,14 @@ namespace MarchingCubes
         {
             _builder.BuildIsosurface(m_FieldBuilder.VoxelBuffer, m_isoValue, m_FieldBuilder.GridScale);
 
-            m_MeshCollider.sharedMesh = _builder.Mesh;
+            Mesh mesh = _builder.Mesh;
+
+            if(mesh.vertices.Distinct().Count() < 3)
+            {
+                mesh = null;
+            }
+
+            m_MeshCollider.sharedMesh = mesh;
         }
 
         private void Initialise()

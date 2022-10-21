@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MoveFlap : MonoBehaviour
+public class MoveSurface : MonoBehaviour
 {
     private enum Axis
     {
@@ -13,6 +13,8 @@ public class MoveFlap : MonoBehaviour
     private Transform m_Transform;
     [SerializeField]
     private Axis m_Axis;
+    [SerializeField]
+    private bool m_Invert;
 
     private void Start()
     {
@@ -21,11 +23,10 @@ public class MoveFlap : MonoBehaviour
 
     private void AlignFlap(float angle)
     {
-        Debug.Log(gameObject.name + " : " + angle);
-
         Vector3 rotation = m_Transform.localEulerAngles;
 
         angle *= Mathf.Rad2Deg;
+        angle *= m_Invert ? -1 : 1;
 
         switch (m_Axis)
         {

@@ -13,7 +13,7 @@ public class World : MonoBehaviour
     [SerializeField]
     private Vector3Int m_NumChunks;
     [SerializeField]
-    private NoiseParameters m_BackgroundFieldNoise;
+    public NoiseParameters BackgroundFieldNoise;
     [SerializeField]
     private Island[] m_Islands;
 
@@ -71,6 +71,9 @@ public class World : MonoBehaviour
 
     private void LoadChunk(Vector3Int chunkIndex)
     {
+        var watch = new System.Diagnostics.Stopwatch();
+        watch.Start();
+
         WorldFieldBuilder chunk = m_Chunks.GetValueOrDefault(chunkIndex);
 
         if (chunk == null)
@@ -84,7 +87,7 @@ public class World : MonoBehaviour
         }
 
         //Update chunk params
-        chunk.NoiseParameters = m_BackgroundFieldNoise;
+        chunk.NoiseParameters = BackgroundFieldNoise;
 
         chunk.GridScale = m_SpacePerPoint;
         chunk.Dimensions = Vector3Int.one * m_PointsPerChunk;
@@ -96,6 +99,10 @@ public class World : MonoBehaviour
 
         //(Re)generate points
         chunk.GeneratePoints();
+
+        watch.Stop();
+
+        Debug.LogFormat("Chunk {0} took {1} ms to spawn", chunkIndex, watch.ElapsedMilliseconds);
     }
 
     private void RemoveChunk(Vector3Int chunkIndex)
