@@ -30,8 +30,13 @@ namespace MarchingCubes
 
         private void Start()
         {
-            Initialise();
+            if (m_MeshCollider == null)
+            {
+                m_MeshCollider = GetComponent<MeshCollider>();
+            }
+
             m_FieldBuilder.GeneratePoints();
+            m_FieldBuilder.Dimensions.Subscribe(CreateBuilder);
             m_FieldBuilder.Field.Subscribe(UpdateMesh);
         }
 
@@ -49,17 +54,14 @@ namespace MarchingCubes
             m_MeshCollider.sharedMesh = mesh;
         }
 
-        private void Initialise()
+        private void CreateBuilder(Vector3Int dimensions)
         {
-            if (m_MeshCollider == null)
+            if (_builder != null)
             {
-                m_MeshCollider = GetComponent<MeshCollider>();
+                _builder.Dispose();
             }
 
-            if (_builder == null)
-            {
-                _builder = new MeshBuilderStandard(m_FieldBuilder.Dimensions, m_TriangleBudget, _builderCompute);
-            }
+            _builder = new MeshBuilderStandard(dimensions, m_TriangleBudget, _builderCompute);
         }
     }
-} // namespace MarchingCubes
+}

@@ -38,9 +38,15 @@ namespace MarchingCubes
 
         private void Start()
         {
-            Initialise();
-            m_FieldBuilder.GeneratePoints();
+            if (m_MeshFilter == null)
+            {
+                m_MeshFilter = GetComponent<MeshFilter>();
+            }
+
+            m_FieldBuilder.GeneratePoints(); //TODO: consider this. It's here to prevent 0 length buffers but does so imperfectly
+            m_FieldBuilder.Dimensions.Subscribe(CreateBuilder);
             m_FieldBuilder.Field.Subscribe(UpdateMesh);
+
         }
 
         public void UpdateMesh()
@@ -51,24 +57,21 @@ namespace MarchingCubes
             m_MeshFilter.sharedMesh = _builder.Mesh;
         }
 
-        private void Initialise()
+        private void CreateBuilder(Vector3Int dimensions)
         {
-            if(m_MeshFilter == null)
+            if (_builder != null)
             {
-                m_MeshFilter = GetComponent<MeshFilter>();
+                _builder.Dispose();
             }
 
-            if(_builder == null)
+            switch (m_Mode)
             {
-                switch (m_Mode)
-                {
-                    case MeshBuilderMode.Standard:
-                        _builder = new MeshBuilderStandard(m_FieldBuilder.Dimensions, m_TriangleBudget, _builderCompute);
-                        break;
-                    case MeshBuilderMode.Advanced:
-                        _builder = new MeshBuilderAdvanced(m_FieldBuilder.Dimensions, m_TriangleBudget, _builderCompute);
-                        break;
-                }
+                case MeshBuilderMode.Standard:
+                    _builder = new MeshBuilderStandard(dimensions, m_TriangleBudget, _builderCompute);
+                    break;
+                case MeshBuilderMode.Advanced:
+                    _builder = new MeshBuilderAdvanced(dimensions, m_TriangleBudget, _builderCompute);
+                    break;
             }
         }
     }

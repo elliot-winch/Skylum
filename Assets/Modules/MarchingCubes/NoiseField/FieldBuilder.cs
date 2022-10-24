@@ -6,18 +6,19 @@ public abstract class FieldBuilder : MonoBehaviour
     [SerializeField]
     protected ComputeShader m_FieldCompute = null;
 
-    public Vector3Int Dimensions = new(64, 64, 64);
     public float GridScale = 1.0f / 64;
     public Vector3 PositionOffset;
 
     private ComputeBuffer m_VoxelBuffer;
     public ComputeBuffer VoxelBuffer => m_VoxelBuffer;
 
-    private int VoxelCount => Dimensions.x * Dimensions.y * Dimensions.z;
+    private int VoxelCount => Dimensions.Value.x * Dimensions.Value.y * Dimensions.Value.z;
 
     private bool m_Allocated = false;
 
-    public Topic<Field> Field = new();
+    public Topic<Field> Field { get; } = new();
+    public Topic<Vector3Int> Dimensions { get; } = new(new(64, 64, 64));
+
 
     private void OnDestroy()
     {
@@ -29,7 +30,7 @@ public abstract class FieldBuilder : MonoBehaviour
         AllocateBuffers();
 
         // Noise field update
-        m_FieldCompute.SetInts("Dims", Dimensions);
+        m_FieldCompute.SetInts("Dims", Dimensions.Value);
         m_FieldCompute.SetFloat("Scale", GridScale);
         m_FieldCompute.SetFloat("Time", Time.time);
         m_FieldCompute.SetVector("offset", new Vector4(PositionOffset.x, PositionOffset.y, PositionOffset.z));
@@ -37,16 +38,16 @@ public abstract class FieldBuilder : MonoBehaviour
 
         UpdateComputeShaderParameters();
 
-        m_FieldCompute.DispatchThreads(0, Dimensions);
+        m_FieldCompute.DispatchThreads(0, Dimensions.Value);
 
         //Copy points from GPU to CPU
         float[] points = new float[VoxelCount];
         m_VoxelBuffer.GetData(points);
 
-        Field.Value = new Field(points, Dimensions, GridScale);
+        Field.Value = new Field(points, Dimensions.Value, GridScale);
     }
 
-    private void AllocateBuffers()
+    protected void AllocateBuffers()
     {
         if (m_Allocated == false)
         {
@@ -55,7 +56,7 @@ public abstract class FieldBuilder : MonoBehaviour
         }
     }
 
-    private void DeallocateBuffers()
+    protected void DeallocateBuffers()
     {
         if (m_Allocated)
         {

@@ -32,7 +32,7 @@ public class FieldPlane : MonoBehaviour
 
     private Texture2D m_Texture;
 
-    private Vector3Int Dimensions => m_FieldBuilder.Dimensions;
+    private Vector3Int Dimensions => m_FieldBuilder.Dimensions.Value;
 
     private void Start()
     {

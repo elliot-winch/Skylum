@@ -1,0 +1,15 @@
+uint3 Dims;
+float Scale;
+float Time;
+float4 offset;
+RWStructuredBuffer<float> Voxels;
+
+float3 posFromID(uint3 id)
+{
+    return Scale * id + offset;
+}
+
+uint indexFromID(uint3 id)
+{
+    return id.x + Dims.x * (id.y + Dims.y * id.z);
+}
