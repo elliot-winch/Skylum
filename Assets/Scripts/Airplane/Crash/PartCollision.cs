@@ -8,11 +8,8 @@ public class PartCollision : MonoBehaviour
     private Vector3 m_Close;
     [SerializeField]
     private Vector3 m_Far;
-    [SerializeField]
-    private Transform[] m_Fractures;
 
-    private float m_PartRemaining = 1;
-
+    public Topic<float> PartRemaining = new(1f);
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -23,35 +20,17 @@ public class PartCollision : MonoBehaviour
         {
             float partAmount = GetPercentageAlongPart(contact.point);
 
-            Debug.Log(partAmount);
-
-            if(partAmount < m_PartRemaining)
+            if (partAmount < PartRemaining.Value)
             {
-                m_PartRemaining = partAmount;
-                ReleaseFractures(partAmount);
+                PartRemaining.Value = partAmount;
             }
         }
     }
 
-    private void ReleaseFractures(float partAmount)
+    public float GetPercentageAlongPart(Vector3 worldPosition)
     {
-        foreach(Transform piece in m_Fractures)
-        {
-            if (piece.gameObject.activeInHierarchy == false)
-            {
-                float piecePlace = GetPercentageAlongPart(piece.position);
-                Debug.Log(piece.name + " " + piece.position + " " + piecePlace);
+        //TODO: put into local space
 
-                if (piecePlace > partAmount)
-                {
-                    piece.gameObject.SetActive(true);
-                }
-            }
-        }
-    }
-
-    private float GetPercentageAlongPart(Vector3 worldPosition)
-    {
         //Vector3 localPosition = transform.InverseTransformVector(worldPosition);
         Vector3 line = m_Far - m_Close;
 
@@ -59,8 +38,6 @@ public class PartCollision : MonoBehaviour
         Debug.DrawRay(m_Close, m_Far - m_Close, Color.yellow, 100f);
 
         float amount = Vector3.Dot(line.normalized, worldPosition - m_Close) / line.magnitude;
-        Debug.Log(amount);
         return amount;
     }
 }
-
