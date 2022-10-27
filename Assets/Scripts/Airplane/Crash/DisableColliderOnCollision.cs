@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ShortenColliderOnCollision : MonoBehaviour
+public class DisableColliderOnCollision : MonoBehaviour
 {
     public enum Direction
     {
@@ -16,7 +14,7 @@ public class ShortenColliderOnCollision : MonoBehaviour
     [SerializeField]
     private BoxCollider m_BoxCollider;
     [SerializeField]
-    private Direction m_Direction;
+    private Direction m_Direction; //TODO
 
     private Vector3 m_StartingCenter;
     private Vector3 m_StartingSize;

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ using UnityEngine;
  * Since OnCollisionEnter is called on the Rigidbody, and the aricraft only has
  * one Rigidbody, we don't want many components on the root Airplane object. This
  * scripts allows scripts elsewhere in the scene to respond to the collision event.
- */ 
+ */
 public class CollisionDetection : MonoBehaviour
 {
     private Dictionary<Collider, Action<Collision>> OnCollision = new();
