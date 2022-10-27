@@ -15,6 +15,8 @@ public class PartDestruction : MonoBehaviour
     private bool m_Slideable = true;
 
     public Topic<float> PartRemaining = new(1f);
+    public Vector3 Close => m_Close;
+    public Vector3 Far => m_Far;
 
     private void Start()
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DisableColliderOnCollision : MonoBehaviour
+public class ShortenColliderOnCollision : MonoBehaviour
 {
     public enum Direction
     {

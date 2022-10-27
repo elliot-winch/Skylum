@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31ad2ae223750974380ba545a828f9a1, type: 3}
+  m_Script: {fileID: 11500000, guid: bb849fb06f4be3940b62a04373066ea3, type: 3}
   m_Name: Wing1
   m_EditorClassIdentifier: 
   liftSlope: 6.28
