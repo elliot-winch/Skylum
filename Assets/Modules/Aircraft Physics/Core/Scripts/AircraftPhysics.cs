@@ -11,6 +11,8 @@ public class AircraftPhysics : MonoBehaviour
     private float m_StartingSpeed;
     [SerializeField] 
     float thrust = 0;
+    [SerializeField]
+    private Vector3 m_CenterOfMass;
     [SerializeField] 
     List<AeroSurface> aerodynamicSurfaces = null;
 
@@ -23,6 +25,7 @@ public class AircraftPhysics : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
+        rb.centerOfMass = m_CenterOfMass;
         rb.velocity = transform.forward * m_StartingSpeed;
     }
 

@@ -633,6 +633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StartingSpeed: 50
   thrust: 3000
+  m_CenterOfMass: {x: 0, y: 1.428238, z: 0.737107}
   aerodynamicSurfaces:
   - {fileID: 609291897431187079}
   - {fileID: 609291897619142875}

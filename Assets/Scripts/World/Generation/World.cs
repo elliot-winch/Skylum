@@ -103,7 +103,7 @@ public class World : MonoBehaviour
 
         watch.Stop();
 
-        Debug.LogFormat("Chunk {0} took {1} ms to spawn", chunkIndex, watch.ElapsedMilliseconds);
+        //Debug.LogFormat("Chunk {0} took {1} ms to spawn", chunkIndex, watch.ElapsedMilliseconds);
     }
 
     private void RemoveChunk(Vector3Int chunkIndex)

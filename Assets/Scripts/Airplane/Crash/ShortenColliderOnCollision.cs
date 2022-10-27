@@ -12,7 +12,7 @@ public class ShortenColliderOnCollision : MonoBehaviour
     }
 
     [SerializeField]
-    private PartCollision m_PartCollision;
+    private PartDestruction m_PartCollision;
     [SerializeField]
     private BoxCollider m_BoxCollider;
     [SerializeField]

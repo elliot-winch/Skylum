@@ -5,7 +5,7 @@ public class FragmentHolder : MonoBehaviour
     [SerializeField]
     private Rigidbody m_RB;
     [SerializeField]
-    private PartCollision m_PartCollision;
+    private PartDestruction m_PartCollision;
     [SerializeField]
     private Fragment[] m_Fractures;
 
@@ -16,8 +16,6 @@ public class FragmentHolder : MonoBehaviour
 
     private void ReleaseFractures(float partAmount)
     {
-        Debug.Log(partAmount);
-
         foreach(Fragment piece in m_Fractures)
         {
             if (piece.Fractured == false)
